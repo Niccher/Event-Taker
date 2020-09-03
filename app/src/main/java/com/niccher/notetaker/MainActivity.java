@@ -3,6 +3,7 @@ package com.niccher.notetaker;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.ItemTouchHelper;
@@ -18,9 +19,11 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.niccher.notetaker.adapters.NoteAdapter;
+import com.niccher.notetaker.usables.Note;
+import com.niccher.notetaker.usables.NoteViewModel;
 
 import java.util.List;
-import java.util.Observable;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -53,7 +56,6 @@ public class MainActivity extends AppCompatActivity {
         noteViewModel.getAllNotes().observe(this, new Observer<List<Note>>() {
             @Override
             public void onChanged(List<Note> notes) {
-                //Toast.makeText(MainActivity.this, "Manny is here", Toast.LENGTH_SHORT).show();
                 adapter.SetNotes(notes);
             }
         });
@@ -68,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
                 //viewHolder.getAdapterPosition();
                 noteViewModel.delete(adapter.getNoteAt(viewHolder.getAdapterPosition()));
-                Toast.makeText(MainActivity.this, "Note droped", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, "Event deleted", Toast.LENGTH_SHORT).show();
             }
         }).attachToRecyclerView(rec);
     }
@@ -80,14 +82,15 @@ public class MainActivity extends AppCompatActivity {
         if (requestCode ==Req_Response && resultCode == RESULT_OK){
             String got_title = data.getStringExtra(AddNote.Ex_Title);
             String got_desc = data.getStringExtra(AddNote.Ex_Desc);
+            String got_date = data.getStringExtra(AddNote.Ex_Date);
             int got_priori = data.getIntExtra(AddNote.Ex_Priori,1);
 
-            Note note = new Note(got_title,got_desc,got_priori);
+            Note note = new Note(got_title,got_desc,got_priori, got_date);
             noteViewModel.insert(note);
 
-            Toast.makeText(this, "Note Succesfully Created", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Event Succesfully Created", Toast.LENGTH_SHORT).show();
         } else {
-            Toast.makeText(this, "Note not Created", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Event not Created", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -100,14 +103,19 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        Boolean stat = false;
         switch (item.getItemId()){
             case R.id.menu_del_all:
                 noteViewModel.deleteAllNotes();
-                Toast.makeText(this, "All Notes Destroyed", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "All Event Destroyed", Toast.LENGTH_SHORT).show();
                 return true;
+            /*case R.id.menu_theme_light:
+                getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);*/
+            case  R.id.menu_theme_dark:
+                getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_YES);
             default:
                 return super.onOptionsItemSelected(item);
         }
-
     }
 }

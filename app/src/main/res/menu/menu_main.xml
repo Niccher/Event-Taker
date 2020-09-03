@@ -1,8 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+    <!---<item
+        android:title="Light Theme"
+        android:id="@+id/menu_theme_light"
+        app:showAsAction="never"/>-->
     <item
-        android:title="Delete all Notes"
+        android:title="Dark Theme"
+        android:id="@+id/menu_theme_dark"
+        app:showAsAction="never"/>
+    <item
+        android:title="Remove All Events"
         android:id="@+id/menu_del_all"
         app:showAsAction="never"/>
 </menu>

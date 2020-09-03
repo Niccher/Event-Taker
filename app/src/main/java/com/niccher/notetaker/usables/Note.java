@@ -1,4 +1,4 @@
-package com.niccher.notetaker;
+package com.niccher.notetaker.usables;
 
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
@@ -8,15 +8,17 @@ public class Note {
 
     private String title;
     private String description;
+    private String dat;
 
     @PrimaryKey(autoGenerate = true)
     private int id;
     private int priority;
 
-    public Note(String title, String description, int priority) {
+    public Note(String title, String description, int priority, String dat) {
         this.title = title;
         this.description = description;
         this.priority = priority;
+        this.dat = dat;
     }
 
     public void setId(int id) {
@@ -33,6 +35,10 @@ public class Note {
 
     public int getPriority() {
         return priority;
+    }
+
+    public String getDat() {
+        return dat;
     }
 
     public int getId() {

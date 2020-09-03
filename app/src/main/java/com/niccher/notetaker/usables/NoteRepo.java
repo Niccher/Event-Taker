@@ -1,9 +1,11 @@
-package com.niccher.notetaker;
+package com.niccher.notetaker.usables;
 
 import android.app.Application;
 import android.os.AsyncTask;
 
 import androidx.lifecycle.LiveData;
+
+import com.niccher.notetaker.interfaces.Note_Dao;
 
 import java.util.List;
 

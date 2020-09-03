@@ -1,4 +1,4 @@
-package com.niccher.notetaker;
+package com.niccher.notetaker.usables;
 
 import android.app.Application;
 

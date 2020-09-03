@@ -19,9 +19,20 @@
             android:layout_alignParentEnd="true"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
             android:text="1"
+            android:textColor="#E42A92"
             android:id="@+id/txt_priority">
 
         </TextView>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+            android:text="Dated"
+            android:textColor="#4199FF"
+            android:layout_below="@id/txt_priority"
+            android:id="@+id/txt_dat"/>
 
         <TextView
             android:layout_width="wrap_content"

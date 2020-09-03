@@ -1,8 +1,7 @@
-package com.niccher.notetaker;
+package com.niccher.notetaker.usables;
 
 import android.content.Context;
 import android.os.AsyncTask;
-import android.print.PrinterId;
 
 import androidx.annotation.NonNull;
 import androidx.room.Database;
@@ -10,7 +9,9 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
-@Database(entities = {Note.class}, version = 1)
+import com.niccher.notetaker.interfaces.Note_Dao;
+
+@Database(entities = {Note.class}, version = 2)
 public abstract class NoteDatabase extends RoomDatabase {
 
     private static  NoteDatabase instance;
@@ -48,10 +49,10 @@ public abstract class NoteDatabase extends RoomDatabase {
 
         @Override
         protected Void doInBackground(Void... voids) {
-            noteDao.insert(new Note("Title 1","Description 1",1));
+            /*noteDao.insert(new Note("Title 1","Description 1",1));
             noteDao.insert(new Note("Title 2","Description 2",2));
             noteDao.insert(new Note("Title 3","Description 3",3));
-            noteDao.insert(new Note("Title 4","Description 4",4));
+            noteDao.insert(new Note("Title 4","Description 4",4));*/
 
             return null;
         }
