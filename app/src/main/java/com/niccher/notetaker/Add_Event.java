@@ -18,7 +18,7 @@ import android.widget.Toast;
 import java.util.Calendar;
 import java.util.Date;
 
-public class AddNote extends AppCompatActivity {
+public class Add_Event extends AppCompatActivity {
 
     public static final String Ex_Title = "com.niccher.notetaker.Ex_Title";
     public static final String Ex_Desc = "com.niccher.notetaker.Ex_Desc";

@@ -14,9 +14,10 @@ import com.niccher.notetaker.R;
 import java.util.ArrayList;
 import java.util.List;
 
-public class NoteAdapter extends RecyclerView.Adapter <NoteAdapter.NoteHolder>{
+public class Event_Adapter extends RecyclerView.Adapter <Event_Adapter.NoteHolder>{
 
     private List<Note> notes = new ArrayList<>();
+    private ClickedEvent listener;
 
     @NonNull
     @Override
@@ -61,6 +62,24 @@ public class NoteAdapter extends RecyclerView.Adapter <NoteAdapter.NoteHolder>{
             tx_body = itemView.findViewById(R.id.txt_body);
             tx_dat = itemView.findViewById(R.id.txt_dat);
 
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int pos = getAdapterPosition();
+                    if (listener !=null && pos !=RecyclerView.NO_POSITION){
+                        listener.onItmClick(notes.get(pos));
+                    }
+                }
+            });
+
         }
+    }
+
+    public interface ClickedEvent{
+        void onItmClick(Note note);
+    }
+
+    public void setOnItemClickListener(ClickedEvent listener){
+        this.listener = listener;
     }
 }

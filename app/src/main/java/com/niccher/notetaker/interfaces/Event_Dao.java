@@ -12,7 +12,7 @@ import com.niccher.notetaker.usables.Note;
 import java.util.List;
 
 @Dao
-public interface Note_Dao {
+public interface Event_Dao {
 
     @Insert
     void insert(Note note);

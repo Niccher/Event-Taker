@@ -1,4 +1,4 @@
-package com.niccher.notetaker.usables;
+package com.niccher.notetaker.models;
 
 import android.app.Application;
 
@@ -6,16 +6,19 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
+import com.niccher.notetaker.usables.Event_Repo;
+import com.niccher.notetaker.usables.Note;
+
 import java.util.List;
 
-public class NoteViewModel extends AndroidViewModel {
+public class Event_ViewModel extends AndroidViewModel {
 
-    private NoteRepo repository;
+    private Event_Repo repository;
     private LiveData<List<Note>> allNotes;
 
-    public NoteViewModel(@NonNull Application application) {
+    public Event_ViewModel(@NonNull Application application) {
         super(application);
-        repository = new NoteRepo(application);
+        repository = new Event_Repo(application);
         allNotes = repository.getAllNotes();
     }
 

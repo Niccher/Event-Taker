@@ -5,35 +5,35 @@ import android.os.AsyncTask;
 
 import androidx.lifecycle.LiveData;
 
-import com.niccher.notetaker.interfaces.Note_Dao;
+import com.niccher.notetaker.interfaces.Event_Dao;
 
 import java.util.List;
 
-public class NoteRepo {
+public class Event_Repo {
 
-    private Note_Dao note_dao;
+    private Event_Dao event_dao;
     private LiveData<List<Note>> allNotes;
 
-    public NoteRepo(Application application){
-        NoteDatabase database = NoteDatabase.getInstance(application);
-        note_dao = database.note_dao();
-        allNotes = note_dao.getAllNotes();
+    public Event_Repo(Application application){
+        Event_Database database = Event_Database.getInstance(application);
+        event_dao = database.note_dao();
+        allNotes = event_dao.getAllNotes();
     }
 
     public void insert(Note note){
-        new InsertNoteAsyncTask(note_dao).execute(note);
+        new InsertNoteAsyncTask(event_dao).execute(note);
     }
 
     public void update(Note note){
-        new UpdateNoteAsyncTask(note_dao).execute(note);
+        new UpdateNoteAsyncTask(event_dao).execute(note);
     }
 
     public void delete(Note note){
-        new DeleteNoteAsyncTask(note_dao).execute(note);
+        new DeleteNoteAsyncTask(event_dao).execute(note);
     }
 
     public void deleteAllNotes(){
-        new DeleteAllNoteAsyncTask(note_dao).execute();
+        new DeleteAllNoteAsyncTask(event_dao).execute();
     }
 
     public LiveData<List<Note>> getAllNotes(){
@@ -42,9 +42,9 @@ public class NoteRepo {
 
     private static class InsertNoteAsyncTask extends AsyncTask<Note,Void,Void>{
 
-        private Note_Dao noteDao;
+        private Event_Dao noteDao;
 
-        private InsertNoteAsyncTask(Note_Dao  noteDao){
+        private InsertNoteAsyncTask(Event_Dao noteDao){
             this.noteDao = noteDao;
         }
 
@@ -58,9 +58,9 @@ public class NoteRepo {
 
     private static class UpdateNoteAsyncTask extends AsyncTask<Note,Void,Void>{
 
-        private Note_Dao noteDao;
+        private Event_Dao noteDao;
 
-        private UpdateNoteAsyncTask(Note_Dao  noteDao){
+        private UpdateNoteAsyncTask(Event_Dao noteDao){
             this.noteDao = noteDao;
         }
 
@@ -74,9 +74,9 @@ public class NoteRepo {
 
     private static class DeleteNoteAsyncTask extends AsyncTask<Note,Void,Void>{
 
-        private Note_Dao noteDao;
+        private Event_Dao noteDao;
 
-        private DeleteNoteAsyncTask(Note_Dao  noteDao){
+        private DeleteNoteAsyncTask(Event_Dao noteDao){
             this.noteDao = noteDao;
         }
 
@@ -90,9 +90,9 @@ public class NoteRepo {
 
     private static class DeleteAllNoteAsyncTask extends AsyncTask<Void,Void,Void>{
 
-        private Note_Dao noteDao;
+        private Event_Dao noteDao;
 
-        private DeleteAllNoteAsyncTask(Note_Dao  noteDao){
+        private DeleteAllNoteAsyncTask(Event_Dao noteDao){
             this.noteDao = noteDao;
         }
 
