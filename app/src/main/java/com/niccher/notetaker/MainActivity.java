@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
+import androidx.core.content.ContextCompat;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.ItemTouchHelper;
@@ -15,6 +16,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -27,6 +29,8 @@ import com.niccher.notetaker.adapters.Event_Adapter;
 import com.niccher.notetaker.usables.Note;
 import com.niccher.notetaker.models.Event_ViewModel;
 
+import net.khirr.android.privacypolicy.PrivacyPolicyDialog;
+
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
@@ -38,6 +42,8 @@ public class MainActivity extends AppCompatActivity {
 
     Dialog myDialog;
     TextView popclos, pop_title, pop_body, pop_priori, pop_date, pop_edit;
+
+    String term_accpt,term_liab,term_disclaimer,term_declare;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +68,18 @@ public class MainActivity extends AppCompatActivity {
 
         final Event_Adapter adapter = new Event_Adapter();
         rec.setAdapter(adapter);
+
+        term_accpt = "By accessing this service we assume you accept these terms and conditions. Do not continue to use this app if you do not agree to take all of the terms and conditions stated here";
+        term_liab = "We shall not be hold responsible for any content that appears on platform. No content should appear on this platform, if it may be interpreted as rebellious, obscene or criminal, or which infringes, otherwise violates, or advocates the infringement or other violation of, any third party rights.\n" +
+                "    We do not ensure that the information on this platform is correct, we do not warrant its completeness or accuracy; nor do we promise to ensure that the platform remains available or that the material on the posted is kept up to date.";
+        term_disclaimer = "To the maximum extent permitted by applicable law, we exclude all representations, warranties and conditions relating to our platform and the use of this website. Nothing in this disclaimer will:\n" +
+                "\n" +
+                "    limit or exclude our or your liability for personality demeanor;\n" +
+                "    limit or exclude our or your liability for fraud or fraudulent misrepresentation;\n" +
+                "    limit any of our or your liabilities in any way that is not permitted under applicable law; or\n" +
+                "    exclude any of our or your liabilities that may not be excluded under applicable law.";
+        term_declare = "As long as the information and services on the platform are provided free of charge, we will not be liable for any loss or damage of any nature";
+
 
         eventViewModel = ViewModelProviders.of(this).get(Event_ViewModel.class);
         eventViewModel.getAllNotes().observe(this, new Observer<List<Note>>() {
@@ -132,6 +150,37 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        PrivacyPolicyDialog dialog = new PrivacyPolicyDialog(this,
+                "link1",
+                "link2");
+
+        dialog.addPoliceLine(term_accpt);
+        dialog.addPoliceLine(term_liab);
+        dialog.addPoliceLine(term_disclaimer);
+        dialog.addPoliceLine(term_declare);
+
+        dialog.setTitleTextColor(Color.parseColor("#222222"));
+        dialog.setAcceptButtonColor(ContextCompat.getColor(this, R.color.colorAccent));
+
+        dialog.setOnClickListener(new PrivacyPolicyDialog.OnClickListener() {
+            @Override
+            public void onAccept(boolean isFirstTime) {
+            }
+
+            @Override
+            public void onCancel() {
+                Log.e("MainActivity", "Policies not accepted");
+                finish();
+            }
+        });
+
+        dialog.show();
     }
 
     @Override
